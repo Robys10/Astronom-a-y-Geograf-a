@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards de Astronomía</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --bg: #f4f7f6;
+            --text: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        h1 { color: var(--primary); margin-bottom: 30px; }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* Estructura de la Carta */
+        .flashcard {
+            background-color: transparent;
+            width: 100%;
+            height: 200px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+
+        .front {
+            background-color: white;
+            color: var(--primary);
+            font-weight: bold;
+            border: 2px solid var(--accent);
+        }
+
+        .back {
+            background-color: var(--accent);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .instruction {
+            margin-bottom: 20px;
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🚀 Repaso de Astronomía y Geografía</h1>
+    <p class="instruction">Haz clic en cada carta para ver la respuesta</p>
+
+    <div class="container" id="cardContainer">
+        </div>
+
+    <script>
+        const data = [
+            { q: "¿Cuál es el estado del Sol y su diámetro aproximado?", a: "Estado Plasmático y diámetro de 1.93 millones de km²." },
+            { q: "¿En qué capa del Sol ocurre la fusión nuclear y qué elementos intervienen?", a: "En el Núcleo (Fusión de Hidrógeno a Helio)." },
+            { q: "¿Qué es la Fotosfera?", a: "Es la zona visible del Sol, conocida como la 'zona de luz'." },
+            { q: "¿Qué caracteriza a Venus respecto a su rotación y temperatura?", a: "Es retrógrado (Este a Oeste) y es el planeta más caliente (470°C)." },
+            { q: "¿Cuál es el volcán más alto del Sistema Solar y dónde está?", a: "El Monte Olimpo (25 km de altura), ubicado en Marte." },
+            { q: "¿Qué define el movimiento de Rotación terrestre?", a: "Es el giro de la Tierra sobre su propio eje." },
+            { q: "¿En qué ciudades del Perú amanece primero y al último?", a: "Primero en Madre de Dios y al final en Piura." },
+            { q: "¿Cuánto dura exactamente un Día Sideral?", a: "23 horas, 56 minutos y 4 segundos." },
+            { q: "¿A qué fuerzas se debe la forma de la Tierra (achatada en polos)?", a: "Fuerza Centrífuga (ensancha el ecuador) y Centrípeta (achata los polos)." },
+            { q: "¿Qué es el Efecto Coriolis?", a: "Efecto de la rotación que desvía vientos: sentido horario en el Norte y antihorario en el Sur." }
+        ];
+
+        const container = document.getElementById('cardContainer');
+
+        data.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'flashcard';
+            card.onclick = () => card.classList.toggle('flipped');
+
+            card.innerHTML = `
+                <div class="flashcard-inner">
+                    <div class="front">
+                        <p>${item.q}</p>
+                    </div>
+                    <div class="back">
+                        <p>${item.a}</p>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    </script>
+</body>
+</html>
